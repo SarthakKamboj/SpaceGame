@@ -10,6 +10,14 @@ public class Move : MonoBehaviour
     private Vector3 prevPos;
     private Vector3 curPos;
     private float radius;
+    private float maxX, minX, maxZ, minZ;
+
+    void Start() {
+        minX = Boundaries.minX;
+        maxX = Boundaries.maxX;
+        minZ = Boundaries.minZ;
+        maxZ = Boundaries.maxZ;
+    }
 
     void OnMouseDown() {
         gOScreenZ = Camera.main.WorldToScreenPoint(transform.position).z;
@@ -28,18 +36,22 @@ public class Move : MonoBehaviour
         OffsetY(1f);
     }
 
+    void ClampCurPos() {
+        curPos.x = Mathf.Clamp(curPos.x, minX + (radius / 2), maxX - (radius / 2));
+        curPos.z = Mathf.Clamp(curPos.z, minZ + (radius / 2), maxZ - (radius /2));
+    }
+
     void OnMouseDrag() {
         curPos = GetWorldMousePos() + mouseOffset;
+        ClampCurPos();
 
-        if (GameAreaBounds.bounds.Contains(curPos) && !CurPosNearBoundary()) {
-            Vector3 pos = transform.position;
+        Vector3 pos = transform.position;
 
-            UpdatePosX(ref pos);
-            UpdatePosZ(ref pos);
+        UpdatePosX(ref pos);
+        UpdatePosZ(ref pos);
 
-            transform.position = pos;
-            gOScreenZ = Camera.main.WorldToScreenPoint(transform.position).z;
-        }
+        transform.position = pos;
+        gOScreenZ = Camera.main.WorldToScreenPoint(transform.position).z;
     }
 
     bool CurPosNearBoundary() {

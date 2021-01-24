@@ -3,8 +3,9 @@
 public class Boundaries : MonoBehaviour
 {
     public float boundaryWidth = 0.1f;
+    public static float minX, maxX, minZ, maxZ;
 
-    void Awake() {
+    void Start() {
         AddBoundaries();
     }
 
@@ -16,42 +17,44 @@ public class Boundaries : MonoBehaviour
     }
 
     void BottomBoundary() {
-        GameObject bottomBoundary = InstantiateBoundary();
+        GameObject bottomBoundary = InstantiateBoundary("Bottom Boundary");
         MoveBoundaryY(ref bottomBoundary);
         Vector3 size = bottomBoundary.GetComponent<Renderer>().bounds.size;
         bottomBoundary.transform.localScale = new Vector3(1f, bottomBoundary.transform.localScale.y, boundaryWidth / size.z);
-
-        
         MoveBoundaryZ(ref bottomBoundary, -1);
+        minZ = bottomBoundary.transform.position.z + (boundaryWidth / 2);
     }
 
     void TopBoundary() {
-        GameObject topBoundary = InstantiateBoundary();
+        GameObject topBoundary = InstantiateBoundary("Top Boundary");
         MoveBoundaryY(ref topBoundary);
         Vector3 size = topBoundary.GetComponent<Renderer>().bounds.size;
         topBoundary.transform.localScale = new Vector3(1f, topBoundary.transform.localScale.y , boundaryWidth / size.z);
-
         MoveBoundaryZ(ref topBoundary, 1);
+        maxZ = topBoundary.transform.position.z - (boundaryWidth / 2);
     }
 
     void LeftBoundary() {
-        GameObject leftBoundary = InstantiateBoundary();
+        GameObject leftBoundary = InstantiateBoundary("Left Boundary");
         MoveBoundaryY(ref leftBoundary);
         Vector3 size = leftBoundary.GetComponent<Renderer>().bounds.size;
         leftBoundary.transform.localScale = new Vector3(boundaryWidth / size.x, leftBoundary.transform.localScale.y, 1f);
         MoveBoundaryX(ref leftBoundary, -1);
+        minX = leftBoundary.transform.position.x + (boundaryWidth / 2);
     }
 
     void RightBoundary() {
-        GameObject rightBoundary = InstantiateBoundary();
+        GameObject rightBoundary = InstantiateBoundary("Right Boundary");
         MoveBoundaryY(ref rightBoundary);
         Vector3 size = rightBoundary.GetComponent<Renderer>().bounds.size;
         rightBoundary.transform.localScale = new Vector3(boundaryWidth / size.x, rightBoundary.transform.localScale.y, 1f);
         MoveBoundaryX(ref rightBoundary, 1);
+        maxX = rightBoundary.transform.position.x - (boundaryWidth / 2);
     }
 
-    GameObject InstantiateBoundary() {
+    GameObject InstantiateBoundary(string name) {
         GameObject boundary = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        boundary.name = name;
         boundary.transform.SetParent(transform, false);
         boundary.AddComponent<BoxCollider>();
         return boundary;
@@ -69,9 +72,13 @@ public class Boundaries : MonoBehaviour
         Vector3 extents = GetComponent<Renderer>().bounds.extents;
         pos.z += extents.z * multiplier;
         boundary.transform.position = pos;
+        if (!printed) {
+            Debug.Log(boundary.transform.position);
+            printed = true;
+        }
     }
 
-
+    bool printed = false;
     void MoveBoundaryY(ref GameObject boundary) {
 
         Renderer renderer = boundary.GetComponent<Renderer>();
@@ -79,10 +86,18 @@ public class Boundaries : MonoBehaviour
 
         boundary.transform.localScale = new Vector3(1f,50f / size.y,1f);
 
-        Vector3 pos = transform.position;
+        Vector3 pos = boundary.transform.position;
+        if (!printed) {
+            Debug.Log(boundary.name);
+            Debug.Log(pos);
+        }
         Vector3 extents = renderer.bounds.extents;
         pos.y += extents.y;
         boundary.transform.position = pos;
 
+        if (!printed) {
+            Debug.Log(boundary.transform.position);
+        }
+    
     }
 }

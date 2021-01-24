@@ -9,7 +9,7 @@ public class FloorGrid : MonoBehaviour
     
     private Collider floorCollider;
 
-    void Start() {
+    void Awake() {
         Rescale();
     }
     
