@@ -1,0 +1,13 @@
+code
+Assembly-CSharp.csproj
+Space.sln
+Library
+Logs
+obj
+Packages
+ProjectSettings
+Temp
+**/*.meta
+.gitignore.swp
+Builds
+Assets/TextMesh Pro
