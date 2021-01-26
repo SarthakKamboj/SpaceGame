@@ -72,13 +72,8 @@ public class Boundaries : MonoBehaviour
         Vector3 extents = GetComponent<Renderer>().bounds.extents;
         pos.z += extents.z * multiplier;
         boundary.transform.position = pos;
-        if (!printed) {
-            Debug.Log(boundary.transform.position);
-            printed = true;
-        }
     }
 
-    bool printed = false;
     void MoveBoundaryY(ref GameObject boundary) {
 
         Renderer renderer = boundary.GetComponent<Renderer>();
@@ -87,17 +82,9 @@ public class Boundaries : MonoBehaviour
         boundary.transform.localScale = new Vector3(1f,50f / size.y,1f);
 
         Vector3 pos = boundary.transform.position;
-        if (!printed) {
-            Debug.Log(boundary.name);
-            Debug.Log(pos);
-        }
         Vector3 extents = renderer.bounds.extents;
         pos.y += extents.y;
         boundary.transform.position = pos;
-
-        if (!printed) {
-            Debug.Log(boundary.transform.position);
-        }
-    
+   
     }
 }

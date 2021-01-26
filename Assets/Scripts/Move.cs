@@ -11,6 +11,7 @@ public class Move : MonoBehaviour
     private Vector3 curPos;
     private float radius;
     private float maxX, minX, maxZ, minZ;
+    public bool mouseDown = false;
 
     void Start() {
         minX = Boundaries.minX;
@@ -19,7 +20,14 @@ public class Move : MonoBehaviour
         maxZ = Boundaries.maxZ;
     }
 
+    void Update() {
+        // if (mouseDown) {
+            // MoveObj();
+        // }
+    }
+
     void OnMouseDown() {
+        mouseDown = true;
         gOScreenZ = Camera.main.WorldToScreenPoint(transform.position).z;
         mouseOffset = transform.position - GetWorldMousePos();
         prevPos = transform.position;
@@ -33,6 +41,7 @@ public class Move : MonoBehaviour
     }
 
     void OnMouseUp() {
+        // mouseDown = false;
         OffsetY(1f);
     }
 
@@ -47,12 +56,37 @@ public class Move : MonoBehaviour
 
         Vector3 pos = transform.position;
 
+        UpdatePos(ref pos);
+
+        // UpdatePosX(ref pos);
+        // UpdatePosZ(ref pos);
+
+        transform.position = pos;
+        gOScreenZ = Camera.main.WorldToScreenPoint(transform.position).z;
+    }
+
+    void UpdatePos(ref Vector3 pos) {
+        pos.x = curPos.x;
+        pos.z = curPos.z;
+
+        prevPos.x = curPos.x;
+        prevPos.z = curPos.z;
+    }
+
+/*
+    void OnMouseDrag() {
+        curPos = GetWorldMousePos() + mouseOffset;
+        ClampCurPos();
+
+        Vector3 pos = transform.position;
+
         UpdatePosX(ref pos);
         UpdatePosZ(ref pos);
 
         transform.position = pos;
         gOScreenZ = Camera.main.WorldToScreenPoint(transform.position).z;
     }
+    */
 
     bool CurPosNearBoundary() {
         bool hit = false;
