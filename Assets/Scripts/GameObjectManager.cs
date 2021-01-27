@@ -2,8 +2,8 @@
 
 public class GameObjectManager : MonoBehaviour
 {
-    public LayerMask groundLayerMask;
-    public GameObject prefab;
+    [HideInInspector]
+    public static SelectedItem itemSelected;
 
     class PosAvailable {
         public Vector3 pos;
@@ -19,7 +19,7 @@ public class GameObjectManager : MonoBehaviour
         }
     }
 
-    PosAvailable GetPos() {
+    static PosAvailable GetPos() {
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(camRay, out hit)) {
@@ -30,28 +30,26 @@ public class GameObjectManager : MonoBehaviour
         return new PosAvailable();
     }
 
-    public void CreateObject() {
+    static void CreateObject() {
         PosAvailable posAvailable = GetPos();
 
-        // GameObject newObj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
         if (posAvailable.available) {
-            GameObject newObj = Instantiate(prefab, posAvailable.pos, Quaternion.Euler(Vector3.up));
-            // newObj.transform.position = pos;
+            GameObject newObj = Instantiate(itemSelected.item.prefab, posAvailable.pos, Quaternion.Euler(Vector3.up));
             MoveObjY(ref newObj);
-            // newObj.GetComponent<Move>().mouseDown = true;
         }
     }
 
-    void MoveObjY(ref GameObject obj) {
+    static void MoveObjY(ref GameObject obj) {
         Vector3 objPos = obj.transform.position;
         objPos.y += obj.GetComponent<Renderer>().bounds.extents.y;
         obj.transform.position = objPos;
     }
 
     void Update() {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0) && itemSelected && !SelectedItem.itemClicked) {
             CreateObject();
-            Debug.Log("clicked");
+            itemSelected.ItemPlaced();
+            itemSelected = null;
         }
     }
 }

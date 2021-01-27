@@ -627,6 +627,7 @@ GameObject:
   - component: {fileID: 865341727}
   - component: {fileID: 865341728}
   - component: {fileID: 865341729}
+  - component: {fileID: 865341730}
   m_Layer: 5
   m_Name: Items
   m_TagString: Untagged
@@ -666,8 +667,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoints: 6
-  image: {fileID: 6885936168801833511, guid: 75238a6588bc8224e92c19fd7a710ff0, type: 3}
+  imagePrefab: {fileID: 6885936168801833511, guid: 75238a6588bc8224e92c19fd7a710ff0,
+    type: 3}
   rectTransform: {fileID: 865341727}
+  minWaitTimeBeforeSpawning: 1
+  maxWaitTimeBeforeSpawning: 10
 --- !u!114 &865341729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,6 +696,18 @@ MonoBehaviour:
   m_Spacing: {x: 70, y: 70}
   m_Constraint: 1
   m_ConstraintCount: 2
+--- !u!225 &865341730
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865341726}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &937192176
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,12 +807,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1220697956 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5624043579003124236, guid: f78d7375f9d831340bcee3add3b6162e,
-    type: 3}
-  m_PrefabInstance: {fileID: 5624043577265035026}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2147118313
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,7 +818,7 @@ GameObject:
   - component: {fileID: 2147118315}
   - component: {fileID: 2147118314}
   m_Layer: 0
-  m_Name: GameObjectManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -826,10 +836,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d805619131680c4ea6e413102e0253e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  prefab: {fileID: 1220697956}
 --- !u!4 &2147118315
 Transform:
   m_ObjectHideFlags: 0
