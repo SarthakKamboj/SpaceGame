@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb506ec079623314eb9d5406bfc03487, type: 3}
   m_Name: Clock
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: ebf89b852d7bdd64f8e12698c1b9a818, type: 3}
-  prefab: {fileID: 5624043579003124236, guid: f78d7375f9d831340bcee3add3b6162e, type: 3}
+  sprite: {fileID: 21300000, guid: dc0ffc2227228534ba5ac563e3d445aa, type: 3}
+  prefab: {fileID: 1380689297206938959, guid: 8449da5a594c4e74580b670216afdb9c, type: 3}

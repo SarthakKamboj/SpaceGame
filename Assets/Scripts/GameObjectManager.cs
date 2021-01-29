@@ -40,8 +40,16 @@ public class GameObjectManager : MonoBehaviour
     }
 
     static void MoveObjY(ref GameObject obj) {
+        /*
         Vector3 objPos = obj.transform.position;
         objPos.y += obj.GetComponent<Renderer>().bounds.extents.y;
+        obj.transform.position = objPos;
+        */
+
+        Vector3 objPos = obj.transform.position;
+        Bounds bounds = obj.GetComponent<Renderer>().bounds;
+        float yOffset = objPos.y - (bounds.center.y - bounds.extents.y);
+        objPos.y += yOffset;
         obj.transform.position = objPos;
     }
 

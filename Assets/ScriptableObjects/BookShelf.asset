@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb506ec079623314eb9d5406bfc03487, type: 3}
   m_Name: BookShelf
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 3fa289b1842216943b509c0f0e56915d, type: 3}
-  prefab: {fileID: 6116445898421588735, guid: 46d8971723454f541ab3982e3466ba8d, type: 3}
+  sprite: {fileID: 21300000, guid: b454cd821ae5103439552b59595d4369, type: 3}
+  prefab: {fileID: 4403024985844562174, guid: 7c4b63be67502404dad0bc28909d5b5e, type: 3}

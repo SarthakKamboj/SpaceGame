@@ -3,13 +3,13 @@
 public class Move : MonoBehaviour
 {
 
-    public Vector3 offset = new Vector3(2f,2f,2f);
     private Vector3 mouseOffset;
     private float gOScreenZ;
     private Vector3 prevPos;
     private Vector3 curPos;
-    private float radius;
+    private float radius, radiusX, radiusZ;
     private float maxX, minX, maxZ, minZ;
+    [HideInInspector]
     public bool mouseDown = false;
 
     void Start() {
@@ -17,6 +17,11 @@ public class Move : MonoBehaviour
         maxX = Boundaries.maxX;
         minZ = Boundaries.minZ;
         maxZ = Boundaries.maxZ;
+        radius = GetMaxVal(GetComponent<Renderer>().bounds.extents);
+        Bounds bounds = GetComponent<Renderer>().bounds;
+        radiusX = bounds.extents.x;
+        radiusZ = bounds.extents.z;
+        // Debug.Log(gameObject.name + " radius: " + radius);
     }
 
     void OnMouseDown() {
@@ -25,7 +30,6 @@ public class Move : MonoBehaviour
         mouseOffset = transform.position - GetWorldMousePos();
         prevPos = transform.position;
         SelectedObject.SelectedGO = gameObject;
-        radius = GetMaxVal(GetComponent<Renderer>().bounds.extents);
         OffsetY(-1f);
     }
 
@@ -38,8 +42,9 @@ public class Move : MonoBehaviour
     }
 
     void ClampCurPos() {
-        curPos.x = Mathf.Clamp(curPos.x, minX + (radius / 2), maxX - (radius / 2));
-        curPos.z = Mathf.Clamp(curPos.z, minZ + (radius / 2), maxZ - (radius /2));
+        curPos.x = Mathf.Clamp(curPos.x, minX + (radiusX), maxX - (radiusX));
+        float zFactor = 1f;
+        curPos.z = Mathf.Clamp(curPos.z, minZ + (float)(radiusZ / zFactor), maxZ - (float)(radiusZ / zFactor));
     }
 
     void OnMouseDrag() {

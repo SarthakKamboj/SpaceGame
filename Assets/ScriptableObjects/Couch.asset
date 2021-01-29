@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb506ec079623314eb9d5406bfc03487, type: 3}
   m_Name: Couch
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 62c556c991a14914e97101ba6d8cfcae, type: 3}
-  prefab: {fileID: 5979604978974737094, guid: faa788b4087030e418cd83b65ccd82a4, type: 3}
+  sprite: {fileID: 21300000, guid: c8fc6bbb890d0e849b1fd2795baa9502, type: 3}
+  prefab: {fileID: 4195318133859586438, guid: 0b0eb6c9871416d46818bceaecb7b05e, type: 3}
